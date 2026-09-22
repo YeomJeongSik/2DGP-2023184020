@@ -6,6 +6,9 @@ open_canvas(800,600)
 
 character = load_image('character.png')
 
+x = 400
+y = 300
+
 def move_circle():
     print("Circle")
     clear_canvas()
