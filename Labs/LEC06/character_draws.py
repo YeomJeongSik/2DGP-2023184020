@@ -80,7 +80,9 @@ def move_rectangle():
 def move_triangle():
     print("Triangle")
     global x,y
-    
+    Speed = 2
+    width = 300
+    width = 150
 
     clear_canvas()
     character.draw(x,y)
