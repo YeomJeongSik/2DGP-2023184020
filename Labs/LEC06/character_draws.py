@@ -21,7 +21,8 @@ def move_circle():
             y = y + R * math.sin(Radius)
             character.draw(x,y)
             update_canvas()
-            delay(100)
+            delay(0.01)
+            Radius += 10
     pass
 
 def move_rectangle():
