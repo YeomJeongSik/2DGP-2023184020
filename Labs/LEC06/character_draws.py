@@ -16,7 +16,8 @@ def move_circle():
     Radius = 0
 
     while Radius <= 360:
-        pass    
+           x = x + R * math.cos(Radius)
+           y = y + R * math.sin(Radius)
     clear_canvas()
     character.draw(x,y)
     update_canvas()
