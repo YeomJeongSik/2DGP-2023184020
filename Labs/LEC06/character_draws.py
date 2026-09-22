@@ -27,30 +27,31 @@ def move_circle():
             delay(0.01)
     pass
 
-def down_move():
-     pass
+def down_move(Max_index, Speed):
+     for i in range(Max_index/2):
+        y -= Speed
 
-def up_move():
-     pass
-def left_move():
-     pass
-def right_move():
-     pass
+def up_move(Max_index, Speed):
+     for i in range(Max_index/2):
+             y += Speed
+     
+def left_move(Max_index, Speed):
+    for i in range(Max_index/2):
+            x -= Speed
+
+def right_move(Max_index, Speed):
+    for i in range(Max_index/2):
+            x += Speed
 
 def move_rectangle():
     print("Rectangle")
     Max_index = 300
     Speed = 1
-    for i in range(Max_index/2):
-         down_move()
-    for i in range(Max_index):
-         left_move()
-    for i in range(Max_index):
-         up_move()
-    for i in range(Max_index):
-         right_move()
-    for i in range(Max_index):
-         down_move()
+    down_move(Max_index, Speed)
+    left_move(Max_index, Speed)
+    up_move(Max_index, Speed)
+    right_move(Max_index, Speed)
+    down_move(Max_index, Speed)
     clear_canvas()
     character.draw(x,y)
     update_canvas()
