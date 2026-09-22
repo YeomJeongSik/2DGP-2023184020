@@ -11,19 +11,19 @@ y = 300
 
 def move_circle():
     print("Circle")
-    x = 400
-    y = 300
-    R = 300
+    cx = 400
+    cy = 300
+    R = 150
     Radius = 0
 
     while Radius <= 360:
             clear_canvas()
-            x = x + R * math.cos(Radius)
-            y = y + R * math.sin(Radius)
+            x = cx + R * math.cos(Radius)
+            y = cy + R * math.sin(Radius)
             character.draw(x,y)
             update_canvas()
+            Radius += 0.05
             delay(0.01)
-            Radius += 2
     pass
 
 def move_rectangle():
