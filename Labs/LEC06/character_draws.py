@@ -1,16 +1,22 @@
 # 실습 과제 진행
-
+import math
 from pico2d import*
 
 open_canvas(800,600)
 
 character = load_image('character.png')
 
-x = 400
-y = 300
+
 
 def move_circle():
     print("Circle")
+    x = 400
+    y = 300
+    R = 100
+    Radius = 0
+
+    while Radius <= 360:
+        pass    
     clear_canvas()
     character.draw(x,y)
     update_canvas()
