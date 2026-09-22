@@ -10,51 +10,71 @@ x = 400
 y = 300
 
 def move_circle():
+    global x,y
     print("Circle")
     cx = 400
     cy = 300
     R = 150
+    Angle = 0.0
     Radius = 0
-    Speed = 0.05
+    Speed = 1
 
-    while Radius <= 360:
+    while Angle <= 360:
             clear_canvas()
+            Radius = math.radians(Angle)
             x = cx + R * math.cos(Radius)
             y = cy + R * math.sin(Radius)
             character.draw(x,y)
             update_canvas()
-            Radius += Speed
+            Angle += Speed
             delay(0.01)
     pass
 
 def down_move(Max_index, Speed):
-     for i in range(Max_index/2):
+     global y
+     for i in range(Max_index):
         y -= Speed
+        clear_canvas()
+        character.draw(x,y)
+        update_canvas()
+        delay(0.01)
 
 def up_move(Max_index, Speed):
-     for i in range(Max_index/2):
-             y += Speed
-     
+     global y
+     for i in range(Max_index//2):
+             y += Speed 
+             clear_canvas()
+             character.draw(x,y)
+             update_canvas()
+             delay(0.01)
+                 
 def left_move(Max_index, Speed):
-    for i in range(Max_index/2):
+    global x
+    for i in range(Max_index):
             x -= Speed
+            clear_canvas()
+            character.draw(x,y)
+            update_canvas()
+            delay(0.01)
 
 def right_move(Max_index, Speed):
-    for i in range(Max_index/2):
+    global x
+    for i in range(Max_index):
             x += Speed
+            clear_canvas()
+            character.draw(x,y)
+            update_canvas()
+            delay(0.01)
 
 def move_rectangle():
     print("Rectangle")
     Max_index = 300
-    Speed = 1
-    down_move(Max_index, Speed)
-    left_move(Max_index, Speed)
+    Speed = 5
     up_move(Max_index, Speed)
-    right_move(Max_index, Speed)
+    left_move(Max_index, Speed)
     down_move(Max_index, Speed)
-    clear_canvas()
-    character.draw(x,y)
-    update_canvas()
+    right_move(Max_index, Speed)
+    
     pass
 
 def move_triangle():
