@@ -11,7 +11,6 @@ y = 300
 
 def move_circle():
     global x,y
-    print("Circle")
     cx = 400
     cy = 300
     R = 150
@@ -67,7 +66,6 @@ def right_move(Max_index, Speed):
             delay(0.01)
 
 def move_rectangle():
-    print("Rectangle")
     Max_index = 300
     Speed = 5
     up_move(Max_index//2, Speed)
@@ -78,7 +76,6 @@ def move_rectangle():
     pass
 
 def move_triangle():
-    print("Triangle")
     global x,y
     Speed = 1
     width = 300
