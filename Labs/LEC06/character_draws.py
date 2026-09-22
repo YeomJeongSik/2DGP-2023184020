@@ -79,6 +79,9 @@ def move_rectangle():
 
 def move_triangle():
     print("Triangle")
+    global x,y
+    
+
     clear_canvas()
     character.draw(x,y)
     update_canvas()
