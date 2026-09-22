@@ -32,7 +32,7 @@ def move_circle():
 
 def down_move(Max_index, Speed):
      global y
-     for i in range(Max_index):
+     for i in range(Max_index//Speed):
         y -= Speed
         clear_canvas()
         character.draw(x,y)
@@ -41,7 +41,7 @@ def down_move(Max_index, Speed):
 
 def up_move(Max_index, Speed):
      global y
-     for i in range(Max_index//2):
+     for i in range(Max_index//Speed):
              y += Speed 
              clear_canvas()
              character.draw(x,y)
@@ -50,7 +50,7 @@ def up_move(Max_index, Speed):
                  
 def left_move(Max_index, Speed):
     global x
-    for i in range(Max_index):
+    for i in range(Max_index//Speed):
             x -= Speed
             clear_canvas()
             character.draw(x,y)
@@ -59,7 +59,7 @@ def left_move(Max_index, Speed):
 
 def right_move(Max_index, Speed):
     global x
-    for i in range(Max_index):
+    for i in range(Max_index//Speed):
             x += Speed
             clear_canvas()
             character.draw(x,y)
@@ -70,11 +70,11 @@ def move_rectangle():
     print("Rectangle")
     Max_index = 300
     Speed = 5
-    up_move(Max_index, Speed)
+    up_move(Max_index//2, Speed)
     left_move(Max_index, Speed)
     down_move(Max_index, Speed)
     right_move(Max_index, Speed)
-    
+    up_move(Max_index//2, Speed)
     pass
 
 def move_triangle():
@@ -84,11 +84,13 @@ def move_triangle():
     width = 300
     height = 150
 
+    for n in range((width//2)//Speed):
+        x -= Speed
+        y += Speed * (height / (width//2))
+        clear_canvas()
+        character.draw(x,y)
+        update_canvas()
 
-
-    clear_canvas()
-    character.draw(x,y)
-    update_canvas()
     pass
 
 
