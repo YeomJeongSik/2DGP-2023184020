@@ -99,7 +99,10 @@ def move_triangle():
         update_canvas()
 
     for n in range(width//Speed):
-         free
+        x += Speed
+        clear_canvas()
+        character.draw(x,y)
+        update_canvas()
 
 while True:
     move_circle()
