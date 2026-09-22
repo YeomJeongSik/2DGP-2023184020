@@ -12,6 +12,9 @@ def move_circle():
 
 def move_rectangle():
     print("Rectangle")
+    clear_canvas()
+    character.draw(400,300)
+    update_canvas()
     pass
 
 def move_triangle():
