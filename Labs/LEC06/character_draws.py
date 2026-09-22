@@ -80,7 +80,7 @@ def move_rectangle():
 def move_triangle():
     print("Triangle")
     global x,y
-    Speed = 2
+    Speed = 1
     width = 300
     height = 150
 
