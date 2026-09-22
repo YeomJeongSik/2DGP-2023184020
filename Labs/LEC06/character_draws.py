@@ -98,6 +98,8 @@ def move_triangle():
         character.draw(x,y)
         update_canvas()
 
+    for n in range(width//Speed):
+         free
 
 while True:
     move_circle()
