@@ -6,13 +6,14 @@ open_canvas(800,600)
 
 character = load_image('character.png')
 
-
+x = 400
+y = 300
 
 def move_circle():
     print("Circle")
     x = 400
     y = 300
-    R = 100
+    R = 300
     Radius = 0
 
     while Radius <= 360:
@@ -22,7 +23,7 @@ def move_circle():
             character.draw(x,y)
             update_canvas()
             delay(0.01)
-            Radius += 10
+            Radius += 2
     pass
 
 def move_rectangle():
