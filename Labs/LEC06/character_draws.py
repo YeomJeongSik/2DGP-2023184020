@@ -15,6 +15,7 @@ def move_circle():
     cy = 300
     R = 150
     Radius = 0
+    Speed = 0.05
 
     while Radius <= 360:
             clear_canvas()
@@ -22,12 +23,34 @@ def move_circle():
             y = cy + R * math.sin(Radius)
             character.draw(x,y)
             update_canvas()
-            Radius += 0.05
+            Radius += Speed
             delay(0.01)
     pass
 
+def down_move():
+     pass
+
+def up_move():
+     pass
+def left_move():
+     pass
+def right_move():
+     pass
+
 def move_rectangle():
     print("Rectangle")
+    Max_index = 300
+    Speed = 1
+    for i in range(Max_index/2):
+         down_move()
+    for i in range(Max_index):
+         left_move()
+    for i in range(Max_index):
+         up_move()
+    for i in range(Max_index):
+         right_move()
+    for i in range(Max_index):
+         down_move()
     clear_canvas()
     character.draw(x,y)
     update_canvas()
