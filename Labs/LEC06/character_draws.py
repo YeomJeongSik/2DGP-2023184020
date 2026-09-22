@@ -91,7 +91,8 @@ def move_triangle():
         character.draw(x,y)
         update_canvas()
 
-    pass
+    for n in range((width//2)//Speed):
+         pass
 
 
 while True:
