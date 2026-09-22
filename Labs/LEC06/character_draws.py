@@ -92,7 +92,8 @@ def move_triangle():
         update_canvas()
 
     for n in range((width//2)//Speed):
-         pass
+        x -= Speed
+        y -= Speed * (height / (width//2))
 
 
 while True:
