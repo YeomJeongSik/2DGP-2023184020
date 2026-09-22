@@ -22,6 +22,9 @@ def move_rectangle():
 
 def move_triangle():
     print("Triangle")
+    clear_canvas()
+    character.draw(400,300)
+    update_canvas()
     pass
 
 
