@@ -12,21 +12,21 @@ y = 300
 def move_circle():
     print("Circle")
     clear_canvas()
-    character.draw(400,300)
+    character.draw(x,y)
     update_canvas()
     pass
 
 def move_rectangle():
     print("Rectangle")
     clear_canvas()
-    character.draw(400,300)
+    character.draw(x,y)
     update_canvas()
     pass
 
 def move_triangle():
     print("Triangle")
     clear_canvas()
-    character.draw(400,300)
+    character.draw(x,y)
     update_canvas()
     pass
 
