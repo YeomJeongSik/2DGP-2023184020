@@ -1,6 +1,9 @@
 import math
 from pico2d import*
 
+open_canvas(800,600)
+character = load_image('character.png')
+
 # 실습 과제 진행
 def draw_circle():
     print("Circle")
@@ -17,6 +20,22 @@ def draw_circle():
 
 def draw_rectangle():
     print("Rectangle")
+    move_top()
+    move_right()
+    move_bottom()
+    move_left()
+    pass
+
+def move_top():
+    pass
+
+def move_right():
+    pass
+
+def move_bottom():
+    pass
+
+def move_left():
     pass
 
 def draw_triangle():
@@ -29,3 +48,5 @@ while True:
     draw_rectangle()
     draw_triangle()
     pass
+
+close_canvas()
