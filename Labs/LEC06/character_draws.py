@@ -29,15 +29,21 @@ def draw_rectangle():
 def move_top():
     print('TOP')
     for x in range(50,750,5):
-        clear_canvas()
-        character.draw(x,550)
-        update_canvas()
-        delay(0.05)
+        draw_character(x)
 
     pass
 
+def draw_character(x):
+    clear_canvas()
+    character.draw(x,550)
+    update_canvas()
+    delay(0.05)
+
 def move_right():
     print('RIGHT')
+    for y in range(55, 750, 5):
+        clear_canvas()
+        character.draw()
     pass
 
 def move_bottom():
