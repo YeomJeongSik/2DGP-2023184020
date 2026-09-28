@@ -24,7 +24,7 @@ def draw_circle():
 def draw_rectangle():
     print("Rectangle")
     move_top()
-    #move_right()
+    move_right()
     #move_bottom()
     move_left()
     pass
