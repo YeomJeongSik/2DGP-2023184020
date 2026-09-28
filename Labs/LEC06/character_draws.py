@@ -58,9 +58,18 @@ def move_left():
 
 def draw_triangle():
     print("Triangle")
+    move_bottom_side()
+    move_right_up_side()
+    move_left_down_side()
     pass
 
 
+def move_bottom_side():
+    pass
+def move_right_up_side():
+    pass
+def move_left_down_side():
+    pass
 while True:
     #draw_circle()
     #draw_rectangle()
