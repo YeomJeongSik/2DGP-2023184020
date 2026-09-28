@@ -74,6 +74,10 @@ def move_bottom_side():
     pass
 def move_right_up_side():
     print('RIGHT_UP_SIDE')
+    for i in range(100):
+        x = 400 + (50 - 400) * (i / 100)
+        y = 550 + (50 - 550) * (i / 100)
+        draw_character(x, y)
     pass
 def move_left_down_side():
     print('LEFT_DOWN_SIDE')
