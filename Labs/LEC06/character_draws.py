@@ -84,8 +84,8 @@ def move_left_down_side():
         draw_character(x, y)
     pass
 while True:
-    #draw_circle()
-    #draw_rectangle()
+    draw_circle()
+    draw_rectangle()
     draw_triangle()
     pass
 
