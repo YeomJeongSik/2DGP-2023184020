@@ -12,10 +12,7 @@ def draw_circle():
         theta = math.radians(degree)
         x = 400 + 200 * math.cos(theta)
         y = 300 + 200 * math.sin(theta)
-        clear_canvas()
-        character.draw(x,y)
-        update_canvas()
-        delay(0.05)
+        draw_character(x, y)
     pass
 
 def draw_rectangle():
