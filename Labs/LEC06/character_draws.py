@@ -9,7 +9,7 @@ def draw_character(x,y):
     character.draw(x,y)
     update_canvas()
     delay(0.05)
-    
+
 # 실습 과제 진행
 def draw_circle():
     print("Circle")
@@ -40,6 +40,8 @@ def move_top():
 
 def move_right():
     print('RIGHT')
+    for y in range(550, 50, -5):
+        draw_character(750, y)
     pass
 
 def move_bottom():
