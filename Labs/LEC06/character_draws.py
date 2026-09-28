@@ -54,7 +54,7 @@ def draw_triangle():
 
 
 while True:
-    draw_circle()
+    #draw_circle()
     draw_rectangle()
     draw_triangle()
     pass
