@@ -66,6 +66,11 @@ def draw_triangle():
 
 def move_bottom_side():
     print('BOTTOM_SIDE')
+    for i in range(100):
+        # 선형 보간(Linear Interpolation) 공식 적용
+        x = 750 + (400 - 750) * (i / 100)
+        y = 50 + (550 - 50) * (i / 100)
+        draw_character(x, y)
     pass
 def move_right_up_side():
     print('RIGHT_UP_SIDE')
