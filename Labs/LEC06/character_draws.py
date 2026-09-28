@@ -65,10 +65,13 @@ def draw_triangle():
 
 
 def move_bottom_side():
+    print('BOTTOM_SIDE')
     pass
 def move_right_up_side():
+    print('RIGHT_UP_SIDE')
     pass
 def move_left_down_side():
+    print('LEFT_DOWN_SIDE')
     pass
 while True:
     #draw_circle()
