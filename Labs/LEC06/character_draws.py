@@ -26,7 +26,7 @@ def draw_rectangle():
 def move_top():
     print('TOP')
     for x in range(50,750,5):
-        draw_character(x, y)
+        draw_character(x, 550)
 
     pass
 
