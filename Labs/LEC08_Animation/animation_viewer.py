@@ -82,6 +82,11 @@ class AnimationSequence:
 		)
 
 
+def get_display_size(sheet):
+	scale = min(SCREEN_WIDTH / sheet.frame_width, SCREEN_HEIGHT / sheet.frame_height) * 0.75
+	return int(sheet.frame_width * scale), int(sheet.frame_height * scale)
+
+
 open_canvas()
 
 
