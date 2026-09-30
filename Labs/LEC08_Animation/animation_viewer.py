@@ -64,8 +64,12 @@ class AnimationSequence:
 
 	def _advance_action(self):
 		sheet = self.sheets[self.sheet_index]
-		self.action += 1
 		self.frame = 0
+		self.action += 1
+		if self.action < sheet.rows:
+			return
+		self.action = 0
+		self.sheet_index = (self.sheet_index + 1) % len(self.sheets)
 
 
 open_canvas()
