@@ -19,6 +19,16 @@ class SpriteSheet:
 	def draw_frame(self, action, frame, x, y, draw_width, draw_height):
 		source_x = frame * self.frame_width + self.frame_width // 2
 		source_y = action * self.frame_height + self.frame_height // 2
+		self.image.clip_draw(
+			source_x,
+			source_y,
+			self.frame_width,
+			self.frame_height,
+			x,
+			y,
+			draw_width,
+			draw_height,
+		)
 
 
 open_canvas()
