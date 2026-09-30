@@ -46,6 +46,8 @@ class AnimationSequence:
 			if now < self.pause_until:
 				return
 			self.pause_until = None
+			self._advance_action()
+			self.next_frame_at = now
 		if now < self.next_frame_at:
 			return
 		self.frame += 1
@@ -59,6 +61,11 @@ class AnimationSequence:
 			return
 		self.repetition = 0
 		self.pause_until = now + PAUSE_TIME
+
+	def _advance_action(self):
+		sheet = self.sheets[self.sheet_index]
+		self.action += 1
+		self.frame = 0
 
 
 open_canvas()
