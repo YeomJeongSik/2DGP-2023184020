@@ -34,6 +34,9 @@ class SpriteSheet:
 class AnimationSequence:
 	def __init__(self, sheets):
 		self.sheets = sheets
+		self.sheet_index = 0
+		self.action = 0
+		self.frame = 0
 
 
 open_canvas()
