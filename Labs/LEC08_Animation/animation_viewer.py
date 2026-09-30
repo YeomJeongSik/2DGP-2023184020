@@ -71,6 +71,16 @@ class AnimationSequence:
 		self.action = 0
 		self.sheet_index = (self.sheet_index + 1) % len(self.sheets)
 
+	def draw(self, x, y, draw_width, draw_height):
+		self.sheets[self.sheet_index].draw_frame(
+			self.action,
+			self.frame,
+			x,
+			y,
+			draw_width,
+			draw_height,
+		)
+
 
 open_canvas()
 
