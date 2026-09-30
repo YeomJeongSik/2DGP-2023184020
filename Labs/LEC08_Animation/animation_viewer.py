@@ -31,6 +31,11 @@ class SpriteSheet:
 		)
 
 
+class AnimationSequence:
+	def __init__(self, sheets):
+		self.sheets = sheets
+
+
 open_canvas()
 
 
