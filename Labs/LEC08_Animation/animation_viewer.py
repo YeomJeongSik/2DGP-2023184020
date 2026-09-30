@@ -89,6 +89,11 @@ def get_display_size(sheet):
 
 def main():
 	open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
+	sheets = [
+		SpriteSheet('1animation.png', 4, 3),
+		SpriteSheet('2animation.png', 4, 4),
+	]
+	animation = AnimationSequence(sheets)
 
 
 main()
