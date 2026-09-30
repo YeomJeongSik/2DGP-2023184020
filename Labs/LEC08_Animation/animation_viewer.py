@@ -50,6 +50,9 @@ class AnimationSequence:
 		if self.frame < sheet.columns:
 			return
 		self.frame = 0
+		self.repetition += 1
+		if self.repetition < REPEAT_COUNT:
+			return
 
 
 open_canvas()
