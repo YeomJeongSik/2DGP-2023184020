@@ -46,6 +46,10 @@ class AnimationSequence:
 			return
 		self.frame += 1
 		self.next_frame_at = now + FRAME_TIME
+		sheet = self.sheets[self.sheet_index]
+		if self.frame < sheet.columns:
+			return
+		self.frame = 0
 
 
 open_canvas()
