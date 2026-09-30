@@ -13,6 +13,8 @@ class SpriteSheet:
 		self.image = load_image(filename)
 		self.columns = columns
 		self.rows = rows
+		self.frame_width = self.image.w // columns
+		self.frame_height = self.image.h // rows
 
 
 open_canvas()
