@@ -10,6 +10,7 @@ PAUSE_TIME = 1.0
 class SpriteSheet:
 	def __init__(self, filename, columns, rows):
 		self.filename = filename
+		self.image = load_image(filename)
 		self.columns = columns
 		self.rows = rows
 
