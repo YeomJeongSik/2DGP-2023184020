@@ -17,7 +17,8 @@ class SpriteSheet:
 		self.frame_height = self.image.h // rows
 
 	def draw_frame(self, action, frame, x, y, draw_width, draw_height):
-		pass
+		source_x = frame * self.frame_width + self.frame_width // 2
+		source_y = action * self.frame_height + self.frame_height // 2
 
 
 open_canvas()
