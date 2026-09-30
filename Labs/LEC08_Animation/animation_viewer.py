@@ -37,6 +37,9 @@ class AnimationSequence:
 		self.sheet_index = 0
 		self.action = 0
 		self.frame = 0
+		self.repetition = 0
+		self.pause_until = None
+		self.next_frame_at = get_time()
 
 
 open_canvas()
