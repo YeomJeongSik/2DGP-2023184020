@@ -53,6 +53,8 @@ class AnimationSequence:
 		self.repetition += 1
 		if self.repetition < REPEAT_COUNT:
 			return
+		self.repetition = 0
+		self.pause_until = now + PAUSE_TIME
 
 
 open_canvas()
