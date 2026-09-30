@@ -87,7 +87,11 @@ def get_display_size(sheet):
 	return int(sheet.frame_width * scale), int(sheet.frame_height * scale)
 
 
-open_canvas()
+def main():
+	open_canvas(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+
+main()
 
 
 close_canvas()
