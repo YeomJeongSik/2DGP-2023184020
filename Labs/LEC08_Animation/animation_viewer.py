@@ -95,6 +95,16 @@ def main():
 	]
 	animation = AnimationSequence(sheets)
 
+	while True:
+		now = get_time()
+		animation.update(now)
+		clear_canvas()
+		sheet = sheets[animation.sheet_index]
+		draw_width, draw_height = get_display_size(sheet)
+		animation.draw(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, draw_width, draw_height)
+		update_canvas()
+		delay(0.01)
+
 
 main()
 
