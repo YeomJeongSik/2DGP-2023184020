@@ -42,6 +42,10 @@ class AnimationSequence:
 		self.next_frame_at = get_time()
 
 	def update(self, now):
+		if self.pause_until is not None:
+			if now < self.pause_until:
+				return
+			self.pause_until = None
 		if now < self.next_frame_at:
 			return
 		self.frame += 1
