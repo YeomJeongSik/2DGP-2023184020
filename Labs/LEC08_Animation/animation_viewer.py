@@ -44,6 +44,8 @@ class AnimationSequence:
 	def update(self, now):
 		if now < self.next_frame_at:
 			return
+		self.frame += 1
+		self.next_frame_at = now + FRAME_TIME
 
 
 open_canvas()
