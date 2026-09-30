@@ -41,6 +41,10 @@ class AnimationSequence:
 		self.pause_until = None
 		self.next_frame_at = get_time()
 
+	def update(self, now):
+		if now < self.next_frame_at:
+			return
+
 
 open_canvas()
 
