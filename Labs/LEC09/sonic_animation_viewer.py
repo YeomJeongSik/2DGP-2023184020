@@ -156,6 +156,7 @@ class AnimationPlayer:
 			self.frame_index += 1
 			if self.frame_index >= len(self.current_animation):
 				self.frame_index = 0
+				self.repeat_count += 1
 
 
 def get_sprite_path():
