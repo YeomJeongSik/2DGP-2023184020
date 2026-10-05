@@ -28,8 +28,8 @@ def make_pixel_frames(boxes):
 def validate_animations(animations):
 	if len(animations) != 10:
 		raise ValueError("애니메이션 동작 수가 10개가 아닙니다.")
-	if sum(len(animation) for animation in animations) != 76:
-		raise ValueError("애니메이션 프레임 수가 76개가 아닙니다.")
+	if sum(len(animation) for animation in animations) != 75:
+		raise ValueError("애니메이션 프레임 수가 75개가 아닙니다.")
 
 	for animation in animations:
 		for frame, next_frame in zip(animation, animation[1:]):
@@ -60,8 +60,7 @@ ANIMATIONS = [
 		(192, 223, 40, 77),
 		(224, 255, 39, 76),
 		(256, 287, 42, 76),
-		(288, 319, 48, 76),
-		(320, 330, 51, 76),
+		(288, 330, 48, 76),
 	]),
 	make_pixel_frames([
 		(8, 33, 80, 116),
