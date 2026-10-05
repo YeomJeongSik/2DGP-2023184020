@@ -26,14 +26,18 @@ def make_pixel_frames(boxes):
 
 
 def validate_animations(animations):
-	if len(animations) != 10:
-		raise ValueError("애니메이션 동작 수가 10개가 아닙니다.")
+	if len(animations) != 11:
+		raise ValueError("애니메이션 동작 수가 11개가 아닙니다.")
 	if sum(len(animation) for animation in animations) != 76:
 		raise ValueError("애니메이션 프레임 수가 76개가 아닙니다.")
 
 	for animation in animations:
 		for frame, next_frame in zip(animation, animation[1:]):
-			if frame.left + frame.width > next_frame.left:
+			frames_share_row = not (
+				frame.bottom + frame.height <= next_frame.bottom
+				or next_frame.bottom + next_frame.height <= frame.bottom
+			)
+			if frames_share_row and frame.left + frame.width > next_frame.left:
 				raise ValueError("인접 프레임 영역이 겹칩니다.")
 			if frame.left < 0 or frame.bottom < 0:
 				raise ValueError("프레임 좌표가 음수입니다.")
@@ -95,8 +99,6 @@ ANIMATIONS = [
 		(193, 222, 170, 198),
 		(230, 260, 170, 198),
 		(268, 297, 170, 199),
-	]),
-	make_pixel_frames([
 		(1, 30, 206, 232),
 		(36, 64, 206, 232),
 		(70, 98, 206, 232),
@@ -127,6 +129,8 @@ ANIMATIONS = [
 		(90, 114, 327, 369),
 		(119, 143, 327, 369),
 		(149, 168, 327, 370),
+	]),
+	make_pixel_frames([
 		(184, 223, 341, 368),
 		(232, 270, 341, 367),
 	]),
@@ -143,6 +147,8 @@ ANIMATIONS = [
 	make_pixel_frames([
 		(6, 39, 429, 468),
 		(49, 82, 426, 468),
+	]),
+	make_pixel_frames([
 		(96, 118, 427, 465),
 		(125, 147, 427, 465),
 	]),
