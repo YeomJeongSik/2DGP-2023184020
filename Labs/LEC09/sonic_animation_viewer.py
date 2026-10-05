@@ -18,14 +18,6 @@ REPEAT_LIMIT = 5
 Frame = namedtuple("Frame", "left bottom width height")
 
 
-def make_box_frames(top, bottom, boxes):
-	source_bottom = SOURCE_HEIGHT - bottom - 1
-	return [
-		Frame(left, source_bottom, right - left + 1, bottom - top + 1)
-		for left, right in boxes
-	]
-
-
 def make_pixel_frames(boxes):
 	return [
 		Frame(left, SOURCE_HEIGHT - bottom - 1, right - left + 1, bottom - top + 1)
