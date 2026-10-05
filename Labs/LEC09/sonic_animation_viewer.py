@@ -206,7 +206,12 @@ def get_sprite_path():
 
 
 open_canvas(WINDOW_WIDTH, WINDOW_HEIGHT)
-sprite_sheet = load_image(str(get_sprite_path()))
+try:
+	sprite_sheet = load_image(str(get_sprite_path()))
+except Exception as error:
+	close_canvas()
+	print(f"스프라이트 이미지를 불러오지 못했습니다: {error}")
+	raise
 animation_player = AnimationPlayer(ANIMATIONS)
 running = True
 previous_time = get_time()
