@@ -10,6 +10,7 @@ CENTER_X = WINDOW_WIDTH // 2
 CENTER_Y = WINDOW_HEIGHT // 2
 SCALE = 4
 SOURCE_HEIGHT = 525
+SOURCE_WIDTH = 399
 FRAME_INTERVAL = 0.1
 PAUSE_DURATION = 1.0
 REPEAT_LIMIT = 5
@@ -30,6 +31,30 @@ def make_pixel_frames(boxes):
 		Frame(left, SOURCE_HEIGHT - bottom - 1, right - left + 1, bottom - top + 1)
 		for left, right, top, bottom in boxes
 	]
+
+
+def validate_animations(animations):
+	if len(animations) != 10:
+		raise ValueError("애니메이션 동작 수가 10개가 아닙니다.")
+	if sum(len(animation) for animation in animations) != 76:
+		raise ValueError("애니메이션 프레임 수가 76개가 아닙니다.")
+
+	for animation in animations:
+		for frame, next_frame in zip(animation, animation[1:]):
+			if frame.left + frame.width > next_frame.left:
+				raise ValueError("인접 프레임 영역이 겹칩니다.")
+			if frame.left < 0 or frame.bottom < 0:
+				raise ValueError("프레임 좌표가 음수입니다.")
+			if frame.left + frame.width > SOURCE_WIDTH:
+				raise ValueError("프레임이 이미지 가로 범위를 벗어났습니다.")
+			if frame.bottom + frame.height > SOURCE_HEIGHT:
+				raise ValueError("프레임이 이미지 세로 범위를 벗어났습니다.")
+
+		last_frame = animation[-1]
+		if last_frame.left + last_frame.width > SOURCE_WIDTH:
+			raise ValueError("마지막 프레임이 이미지 가로 범위를 벗어났습니다.")
+		if last_frame.bottom + last_frame.height > SOURCE_HEIGHT:
+			raise ValueError("마지막 프레임이 이미지 세로 범위를 벗어났습니다.")
 
 
 ANIMATIONS = [
@@ -130,6 +155,9 @@ ANIMATIONS = [
 		(125, 147, 427, 465),
 	]),
 ]
+
+
+validate_animations(ANIMATIONS)
 
 
 class AnimationPlayer:
