@@ -1,0 +1,303 @@
+import math
+from pathlib import Path
+from collections import namedtuple
+
+from pico2d import *
+
+
+WINDOW_WIDTH = 1200
+WINDOW_HEIGHT = 800
+CENTER_X = WINDOW_WIDTH // 2
+CENTER_Y = WINDOW_HEIGHT // 2
+SCALE = 4
+SOURCE_HEIGHT = 525
+SOURCE_WIDTH = 399
+FRAME_INTERVAL = 0.1
+PAUSE_DURATION = 1.0
+REPEAT_LIMIT = 5
+
+Frame = namedtuple("Frame", "left bottom width height")
+
+
+def move_left_to_right(progress):
+	return 160 + 880 * progress, CENTER_Y
+
+
+def move_right_to_left(progress):
+	return 1040 - 880 * progress, CENTER_Y
+
+
+def jump_arc(progress):
+	return 180 + 840 * progress, 280 + 300 * 4 * progress * (1 - progress)
+
+
+def roll_left_to_right(progress):
+	return 180 + 840 * progress, 250
+
+
+def move_up_right(progress):
+	return 180 + 840 * progress, 600 - 280 * progress
+
+
+def move_down_left(progress):
+	return 1020 - 840 * progress, 320 + 280 * progress
+
+
+def bounce_across(progress):
+	return 180 + 840 * progress, 300 + 160 * abs(math.sin(math.pi * 2 * progress))
+
+
+def circle_motion(progress):
+	angle = math.pi * 2 * progress
+	return CENTER_X + 260 * math.cos(angle), CENTER_Y + 140 * math.sin(angle)
+
+
+def stay_center(progress):
+	return CENTER_X, CENTER_Y
+
+
+MOTION_PATHS = [
+	move_left_to_right,
+	move_right_to_left,
+	jump_arc,
+	roll_left_to_right,
+	move_up_right,
+	move_down_left,
+	bounce_across,
+	circle_motion,
+	stay_center,
+	stay_center,
+	stay_center,
+]
+
+
+def make_pixel_frames(boxes):
+	return [
+		Frame(left, SOURCE_HEIGHT - bottom - 1, right - left + 1, bottom - top + 1)
+		for left, right, top, bottom in boxes
+	]
+
+
+def validate_animations(animations):
+	if len(animations) != 11:
+		raise ValueError("애니메이션 동작 수가 11개가 아닙니다.")
+	if sum(len(animation) for animation in animations) != 76:
+		raise ValueError("애니메이션 프레임 수가 76개가 아닙니다.")
+
+	for animation in animations:
+		for frame, next_frame in zip(animation, animation[1:]):
+			frames_share_row = not (
+				frame.bottom + frame.height <= next_frame.bottom
+				or next_frame.bottom + next_frame.height <= frame.bottom
+			)
+			if frames_share_row and frame.left + frame.width > next_frame.left:
+				raise ValueError("인접 프레임 영역이 겹칩니다.")
+			if frame.left < 0 or frame.bottom < 0:
+				raise ValueError("프레임 좌표가 음수입니다.")
+			if frame.left + frame.width > SOURCE_WIDTH:
+				raise ValueError("프레임이 이미지 가로 범위를 벗어났습니다.")
+			if frame.bottom + frame.height > SOURCE_HEIGHT:
+				raise ValueError("프레임이 이미지 세로 범위를 벗어났습니다.")
+
+		last_frame = animation[-1]
+		if last_frame.left + last_frame.width > SOURCE_WIDTH:
+			raise ValueError("마지막 프레임이 이미지 가로 범위를 벗어났습니다.")
+		if last_frame.bottom + last_frame.height > SOURCE_HEIGHT:
+			raise ValueError("마지막 프레임이 이미지 세로 범위를 벗어났습니다.")
+
+
+ANIMATIONS = [
+	make_pixel_frames([
+		(1, 29, 39, 77),
+		(31, 56, 40, 77),
+		(58, 85, 39, 77),
+		(86, 115, 40, 77),
+		(118, 147, 40, 77),
+		(150, 179, 40, 77),
+		(182, 210, 40, 77),
+		(211, 239, 39, 76),
+		(240, 268, 39, 76),
+		(270, 293, 45, 76),
+		(302, 330, 51, 76),
+	]),
+	make_pixel_frames([
+		(8, 33, 80, 116),
+		(37, 63, 80, 116),
+		(65, 95, 80, 117),
+		(97, 133, 80, 116),
+		(135, 166, 80, 114),
+		(170, 201, 79, 116),
+		(206, 231, 79, 116),
+		(238, 261, 80, 116),
+		(263, 292, 80, 116),
+		(295, 330, 80, 116),
+		(334, 365, 80, 115),
+		(370, 398, 79, 116),
+	]),
+	make_pixel_frames([
+		(1, 33, 124, 163),
+		(39, 73, 124, 162),
+		(89, 123, 125, 162),
+		(130, 163, 121, 162),
+		(181, 214, 122, 162),
+		(228, 260, 122, 161),
+	]),
+	make_pixel_frames([
+		(1, 29, 169, 198),
+		(35, 63, 167, 197),
+		(67, 96, 169, 197),
+		(98, 128, 169, 197),
+		(131, 159, 168, 197),
+		(162, 190, 168, 198),
+		(193, 222, 170, 198),
+		(230, 260, 170, 198),
+		(268, 297, 170, 199),
+		(1, 30, 206, 232),
+		(36, 64, 206, 232),
+		(70, 98, 206, 232),
+		(105, 133, 206, 232),
+		(139, 167, 206, 232),
+		(174, 202, 206, 232),
+	]),
+	make_pixel_frames([
+		(1, 29, 239, 273),
+		(36, 65, 239, 273),
+		(74, 104, 239, 273),
+		(111, 141, 238, 273),
+		(149, 178, 239, 273),
+		(186, 216, 238, 273),
+	]),
+	make_pixel_frames([
+		(1, 29, 283, 317),
+		(36, 65, 283, 317),
+		(72, 110, 286, 316),
+		(123, 161, 285, 316),
+		(172, 210, 286, 316),
+		(218, 255, 285, 316),
+	]),
+	make_pixel_frames([
+		(1, 24, 326, 370),
+		(31, 59, 327, 370),
+		(65, 84, 327, 370),
+		(90, 114, 327, 369),
+		(119, 143, 327, 369),
+		(149, 168, 327, 370),
+	]),
+	make_pixel_frames([
+		(184, 223, 341, 368),
+		(232, 270, 341, 367),
+	]),
+	make_pixel_frames([
+		(1, 27, 379, 416),
+		(31, 61, 379, 414),
+		(64, 94, 379, 414),
+		(99, 131, 377, 414),
+		(136, 167, 379, 414),
+		(176, 208, 379, 414),
+		(217, 249, 379, 414),
+		(254, 286, 378, 413),
+	]),
+	make_pixel_frames([
+		(6, 39, 429, 468),
+		(49, 82, 426, 468),
+	]),
+	make_pixel_frames([
+		(96, 118, 427, 465),
+		(125, 147, 427, 465),
+	]),
+]
+
+
+validate_animations(ANIMATIONS)
+
+
+class AnimationPlayer:
+	def __init__(self, animations):
+		self.animations = animations
+		self.animation_index = 0
+		self.frame_index = 0
+		self.repeat_count = 0
+		self.state = "playing"
+		self.elapsed_time = 0.0
+
+	@property
+	def current_animation(self):
+		return self.animations[self.animation_index]
+
+	@property
+	def current_frame(self):
+		return self.current_animation[self.frame_index]
+
+	@property
+	def current_position(self):
+		if self.state == "waiting":
+			progress = 1.0
+		else:
+			frame_progress = min(self.elapsed_time / FRAME_INTERVAL, 1.0)
+			progress = (self.frame_index + frame_progress) / len(self.current_animation)
+		return MOTION_PATHS[self.animation_index](progress)
+
+	def update(self, delta_time):
+		self.elapsed_time += delta_time
+		if self.state == "waiting":
+			if self.elapsed_time >= PAUSE_DURATION:
+				self.animation_index = (self.animation_index + 1) % len(self.animations)
+				self.frame_index = 0
+				self.repeat_count = 0
+				self.elapsed_time = 0.0
+				self.state = "playing"
+			return
+
+		while self.elapsed_time >= FRAME_INTERVAL:
+			self.elapsed_time -= FRAME_INTERVAL
+			self.frame_index += 1
+			if self.frame_index >= len(self.current_animation):
+				self.frame_index = 0
+				self.repeat_count += 1
+				if self.repeat_count >= REPEAT_LIMIT:
+					self.frame_index = len(self.current_animation) - 1
+					self.elapsed_time = 0.0
+					self.state = "waiting"
+					break
+
+
+def get_sprite_path():
+	return Path(__file__).with_name("sonic-sprite.png")
+
+
+open_canvas(WINDOW_WIDTH, WINDOW_HEIGHT)
+try:
+	sprite_sheet = load_image(str(get_sprite_path()))
+except Exception as error:
+	close_canvas()
+	print(f"스프라이트 이미지를 불러오지 못했습니다: {error}")
+	raise
+animation_player = AnimationPlayer(ANIMATIONS)
+running = True
+previous_time = get_time()
+
+while running:
+	for event in get_events():
+		if event.type == SDL_QUIT:
+			running = False
+
+	current_time = get_time()
+	animation_player.update(current_time - previous_time)
+	previous_time = current_time
+
+	clear_canvas()
+	frame = animation_player.current_frame
+	draw_x, draw_y = animation_player.current_position
+	sprite_sheet.clip_draw(
+		frame.left,
+		frame.bottom,
+		frame.width,
+		frame.height,
+		draw_x,
+		draw_y,
+		frame.width * SCALE,
+		frame.height * SCALE,
+	)
+	update_canvas()
+
+close_canvas()
