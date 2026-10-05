@@ -1,4 +1,5 @@
 from pathlib import Path
+from collections import namedtuple
 
 from pico2d import *
 
@@ -9,6 +10,19 @@ CENTER_X = WINDOW_WIDTH // 2
 CENTER_Y = WINDOW_HEIGHT // 2
 SCALE = 4
 SOURCE_HEIGHT = 525
+
+Frame = namedtuple("Frame", "left bottom width height")
+
+
+def make_box_frames(top, bottom, boxes):
+	source_bottom = SOURCE_HEIGHT - bottom - 1
+	return [
+		Frame(left, source_bottom, right - left + 1, bottom - top + 1)
+		for left, right in boxes
+	]
+
+
+ANIMATIONS = []
 
 
 def get_sprite_path():
