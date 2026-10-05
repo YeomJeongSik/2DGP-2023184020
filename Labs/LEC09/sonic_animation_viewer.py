@@ -149,6 +149,14 @@ class AnimationPlayer:
 	def current_frame(self):
 		return self.current_animation[self.frame_index]
 
+	def update(self, delta_time):
+		self.elapsed_time += delta_time
+		if self.elapsed_time >= FRAME_INTERVAL:
+			self.elapsed_time -= FRAME_INTERVAL
+			self.frame_index += 1
+			if self.frame_index >= len(self.current_animation):
+				self.frame_index = 0
+
 
 def get_sprite_path():
 	return Path(__file__).with_name("sonic-sprite.png")
@@ -158,11 +166,16 @@ open_canvas(WINDOW_WIDTH, WINDOW_HEIGHT)
 sprite_sheet = load_image(str(get_sprite_path()))
 animation_player = AnimationPlayer(ANIMATIONS)
 running = True
+previous_time = get_time()
 
 while running:
 	for event in get_events():
 		if event.type == SDL_QUIT:
 			running = False
+
+	current_time = get_time()
+	animation_player.update(current_time - previous_time)
+	previous_time = current_time
 
 	clear_canvas()
 	frame = animation_player.current_frame
