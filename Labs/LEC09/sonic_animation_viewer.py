@@ -1,3 +1,4 @@
+import math
 from pathlib import Path
 from collections import namedtuple
 
@@ -16,6 +17,58 @@ PAUSE_DURATION = 1.0
 REPEAT_LIMIT = 5
 
 Frame = namedtuple("Frame", "left bottom width height")
+
+
+def move_left_to_right(progress):
+	return 160 + 880 * progress, CENTER_Y
+
+
+def move_right_to_left(progress):
+	return 1040 - 880 * progress, CENTER_Y
+
+
+def jump_arc(progress):
+	return 180 + 840 * progress, 280 + 300 * 4 * progress * (1 - progress)
+
+
+def roll_left_to_right(progress):
+	return 180 + 840 * progress, 250
+
+
+def move_up_right(progress):
+	return 180 + 840 * progress, 600 - 280 * progress
+
+
+def move_down_left(progress):
+	return 1020 - 840 * progress, 320 + 280 * progress
+
+
+def bounce_across(progress):
+	return 180 + 840 * progress, 300 + 160 * abs(math.sin(math.pi * 2 * progress))
+
+
+def circle_motion(progress):
+	angle = math.pi * 2 * progress
+	return CENTER_X + 260 * math.cos(angle), CENTER_Y + 140 * math.sin(angle)
+
+
+def stay_center(progress):
+	return CENTER_X, CENTER_Y
+
+
+MOTION_PATHS = [
+	move_left_to_right,
+	move_right_to_left,
+	jump_arc,
+	roll_left_to_right,
+	move_up_right,
+	move_down_left,
+	bounce_across,
+	circle_motion,
+	stay_center,
+	stay_center,
+	stay_center,
+]
 
 
 def make_pixel_frames(boxes):
@@ -175,6 +228,15 @@ class AnimationPlayer:
 	def current_frame(self):
 		return self.current_animation[self.frame_index]
 
+	@property
+	def current_position(self):
+		if self.state == "waiting":
+			progress = 1.0
+		else:
+			frame_progress = min(self.elapsed_time / FRAME_INTERVAL, 1.0)
+			progress = (self.frame_index + frame_progress) / len(self.current_animation)
+		return MOTION_PATHS[self.animation_index](progress)
+
 	def update(self, delta_time):
 		self.elapsed_time += delta_time
 		if self.state == "waiting":
@@ -225,13 +287,14 @@ while running:
 
 	clear_canvas()
 	frame = animation_player.current_frame
+	draw_x, draw_y = animation_player.current_position
 	sprite_sheet.clip_draw(
 		frame.left,
 		frame.bottom,
 		frame.width,
 		frame.height,
-		CENTER_X,
-		CENTER_Y,
+		draw_x,
+		draw_y,
 		frame.width * SCALE,
 		frame.height * SCALE,
 	)
