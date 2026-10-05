@@ -151,6 +151,15 @@ class AnimationPlayer:
 
 	def update(self, delta_time):
 		self.elapsed_time += delta_time
+		if self.state == "waiting":
+			if self.elapsed_time >= PAUSE_DURATION:
+				self.animation_index = (self.animation_index + 1) % len(self.animations)
+				self.frame_index = 0
+				self.repeat_count = 0
+				self.elapsed_time = 0.0
+				self.state = "playing"
+			return
+
 		while self.elapsed_time >= FRAME_INTERVAL:
 			self.elapsed_time -= FRAME_INTERVAL
 			self.frame_index += 1
