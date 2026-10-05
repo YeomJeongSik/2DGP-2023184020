@@ -157,6 +157,11 @@ class AnimationPlayer:
 			if self.frame_index >= len(self.current_animation):
 				self.frame_index = 0
 				self.repeat_count += 1
+				if self.repeat_count >= REPEAT_LIMIT:
+					self.frame_index = len(self.current_animation) - 1
+					self.elapsed_time = 0.0
+					self.state = "waiting"
+					break
 
 
 def get_sprite_path():
