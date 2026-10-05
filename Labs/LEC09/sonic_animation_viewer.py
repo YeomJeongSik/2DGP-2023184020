@@ -5,6 +5,10 @@ from pico2d import *
 
 WINDOW_WIDTH = 1200
 WINDOW_HEIGHT = 800
+CENTER_X = WINDOW_WIDTH // 2
+CENTER_Y = WINDOW_HEIGHT // 2
+SCALE = 4
+SOURCE_HEIGHT = 525
 
 
 def get_sprite_path():
@@ -21,6 +25,7 @@ while running:
 			running = False
 
 	clear_canvas()
+	sprite_sheet.clip_draw(0, SOURCE_HEIGHT - 78, 32, 40, CENTER_X, CENTER_Y)
 	update_canvas()
 
 close_canvas()
