@@ -25,7 +25,16 @@ while running:
 			running = False
 
 	clear_canvas()
-	sprite_sheet.clip_draw(0, SOURCE_HEIGHT - 78, 32, 40, CENTER_X, CENTER_Y)
+	sprite_sheet.clip_draw(
+		0,
+		SOURCE_HEIGHT - 78,
+		32,
+		40,
+		CENTER_X,
+		CENTER_Y,
+		32 * SCALE,
+		40 * SCALE,
+	)
 	update_canvas()
 
 close_canvas()
