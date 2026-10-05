@@ -10,6 +10,9 @@ CENTER_X = WINDOW_WIDTH // 2
 CENTER_Y = WINDOW_HEIGHT // 2
 SCALE = 4
 SOURCE_HEIGHT = 525
+FRAME_INTERVAL = 0.1
+PAUSE_DURATION = 1.0
+REPEAT_LIMIT = 5
 
 Frame = namedtuple("Frame", "left bottom width height")
 
@@ -127,6 +130,24 @@ ANIMATIONS = [
 		(125, 147, 427, 465),
 	]),
 ]
+
+
+class AnimationPlayer:
+	def __init__(self, animations):
+		self.animations = animations
+		self.animation_index = 0
+		self.frame_index = 0
+		self.repeat_count = 0
+		self.state = "playing"
+		self.elapsed_time = 0.0
+
+	@property
+	def current_animation(self):
+		return self.animations[self.animation_index]
+
+	@property
+	def current_frame(self):
+		return self.current_animation[self.frame_index]
 
 
 def get_sprite_path():
