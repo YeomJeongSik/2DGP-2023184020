@@ -156,6 +156,7 @@ def get_sprite_path():
 
 open_canvas(WINDOW_WIDTH, WINDOW_HEIGHT)
 sprite_sheet = load_image(str(get_sprite_path()))
+animation_player = AnimationPlayer(ANIMATIONS)
 running = True
 
 while running:
@@ -164,15 +165,16 @@ while running:
 			running = False
 
 	clear_canvas()
+	frame = animation_player.current_frame
 	sprite_sheet.clip_draw(
-		0,
-		SOURCE_HEIGHT - 78,
-		32,
-		40,
+		frame.left,
+		frame.bottom,
+		frame.width,
+		frame.height,
 		CENTER_X,
 		CENTER_Y,
-		32 * SCALE,
-		40 * SCALE,
+		frame.width * SCALE,
+		frame.height * SCALE,
 	)
 	update_canvas()
 
