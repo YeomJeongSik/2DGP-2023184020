@@ -151,7 +151,7 @@ class AnimationPlayer:
 
 	def update(self, delta_time):
 		self.elapsed_time += delta_time
-		if self.elapsed_time >= FRAME_INTERVAL:
+		while self.elapsed_time >= FRAME_INTERVAL:
 			self.elapsed_time -= FRAME_INTERVAL
 			self.frame_index += 1
 			if self.frame_index >= len(self.current_animation):
